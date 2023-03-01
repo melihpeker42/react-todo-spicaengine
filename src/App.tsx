@@ -15,7 +15,7 @@ const App = () => {
   const [todos, setTodos] = useState<TodoItemInterface[]>([]);
 
   useEffect(() => {
-    TodoService.getAllRealtime().subscribe((res: any) => setTodos(res));
+    TodoService.getAllRealtime().subscribe((res : TodoItemInterface[]) => setTodos(res));
   }, []);
 
   const updateTodoItemStatus = (_id: string) => {
@@ -45,14 +45,13 @@ const App = () => {
         return todo;
       })
     );
-  };
-  const updateTodoItemTitle = (_id: string) => {
     TodoService.update(_id, {
       title: todos.find((item) => item._id === _id)?.title,
     }).catch((err) => console.log(err));
   };
+  
   return (
-    <>
+    
       <Routes>
         <Route
           path="/"
@@ -63,7 +62,6 @@ const App = () => {
                 <InputTodo addTodoProps={addTodoItem} />
                 <TodoList
                   todos={todos}
-                  updateTodoItemTitle={updateTodoItemTitle}
                   handleChangeProps={updateTodoItemStatus}
                   deleteTodoProps={deleteTodoItem}
                   setUpdate={setUpdatedTodoItem}
@@ -73,7 +71,7 @@ const App = () => {
           }
         />
       </Routes>
-    </>
+    
   );
 };
 

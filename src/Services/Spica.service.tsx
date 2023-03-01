@@ -1,4 +1,5 @@
 import * as Bucket from "@spica-devkit/bucket";
+import { TodoItemInterface } from "../App";
 
 class TodoService {
   private API_KEY = "mag18lefsguab";
@@ -33,7 +34,7 @@ class TodoService {
         }
       | undefined;
   }) => {
-    return Bucket.data.realtime.getAll(this.BUCKET_ID, options);
+    return Bucket.data.realtime.getAll<TodoItemInterface>(this.BUCKET_ID, options);
   };
 
   update = (_id: string, document: object) => {
